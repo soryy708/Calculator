@@ -17,7 +17,7 @@ private:
 
 public:
 	const std::string toString() const;
-	const double computeInOrder() const;
+	const double compute() const;
 
 	Equation(std::string str);
 	Equation(Equation& other);

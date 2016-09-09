@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 	try
 	{
 		Equation equation(input);
-		std::cout << equation.toString() << " = " << equation.computeInOrder() << std::endl;
+		std::cout << equation.toString() << " = " << equation.compute() << std::endl;
 	}
 	catch (Equation::SyntaxError& e)
 	{

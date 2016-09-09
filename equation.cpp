@@ -142,53 +142,58 @@ const std::string Equation::toString() const
 	return str;
 }
 
-const double Equation::computeInOrder() const
+const double computeInOrder(std::vector<Token> tokens)
 {
 	double answer = 0.0;
-	if (isValid(pimpl->tokens))
+	if (isValid(tokens))
 	{
-		if (pimpl->tokens[0].getType() == Token::Type::VALUE)
+		if (tokens[0].getType() == Token::Type::VALUE)
 		{
-			answer = pimpl->tokens[0].getValue().value;
+			answer = tokens[0].getValue().value;
 		}
 		else
 		{
-			throw(SyntaxError());
+			throw(Equation::SyntaxError());
 		}
-		for (unsigned int i = 1; i < pimpl->tokens.size(); i+=2)
+		for (unsigned int i = 1; i < tokens.size(); i+=2)
 		{
-			if (pimpl->tokens[i].getType() == Token::Type::OPERATION)
+			if (tokens[i].getType() == Token::Type::OPERATION)
 			{
-				if (pimpl->tokens.size() > i + 1 && pimpl->tokens[i + 1].getType() == Token::Type::VALUE)
+				if (tokens.size() > i + 1 && tokens[i + 1].getType() == Token::Type::VALUE)
 				{
-					switch (pimpl->tokens[i].getValue().operation)
+					switch (tokens[i].getValue().operation)
 					{
 					case('+') :
-						answer += pimpl->tokens[i + 1].getValue().value;
+						answer += tokens[i + 1].getValue().value;
 						break;
 					case('-') :
-						answer -= pimpl->tokens[i + 1].getValue().value;
+						answer -= tokens[i + 1].getValue().value;
 						break;
 					case('*') :
-						answer *= pimpl->tokens[i + 1].getValue().value;
+						answer *= tokens[i + 1].getValue().value;
 						break;
 					case('/') :
-						answer /= pimpl->tokens[i + 1].getValue().value;
+						answer /= tokens[i + 1].getValue().value;
 						break;
 					}
 				}
 			}
 			else
 			{
-				throw(SyntaxError());
+				throw(Equation::SyntaxError());
 			}
 		}
 	}
 	else
 	{
-		throw(SyntaxError());
+		throw(Equation::SyntaxError());
 	}
 	return answer;
+}
+
+const double Equation::compute() const
+{
+	return computeInOrder(pimpl->tokens);
 }
 
 Equation::Equation(std::string str) :
