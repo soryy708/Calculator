@@ -196,6 +196,11 @@ Equation::Equation(std::string str) :
 {
 }
 
+Equation::Equation(Equation& other) :
+	pimpl(new Pimpl(*other.pimpl))
+{
+}
+
 Equation::Equation(Equation&& other) :
 	pimpl(other.pimpl)
 {
