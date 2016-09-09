@@ -198,5 +198,8 @@ Equation::Equation(std::string str) :
 
 Equation::~Equation()
 {
-	delete pimpl;
+	if (pimpl)
+	{
+		delete pimpl;
+	}
 }
