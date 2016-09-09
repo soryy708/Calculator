@@ -196,6 +196,12 @@ Equation::Equation(std::string str) :
 {
 }
 
+Equation::Equation(Equation&& other) :
+	pimpl(other.pimpl)
+{
+	other.pimpl = nullptr;
+}
+
 Equation::~Equation()
 {
 	if (pimpl)

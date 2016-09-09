@@ -20,6 +20,7 @@ public:
 	const double computeInOrder() const;
 
 	Equation(std::string str);
+	Equation(Equation&& other);
 	~Equation();
 };
 
